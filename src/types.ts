@@ -87,6 +87,7 @@ export function loadEntries(
     libraryArray = JSON.parse(databaseRaw);
   } else if (databaseType == 'biblatex') {
     const options: BibTeXParser.ParserOptions = {
+      sentenceCase: false,
       errorHandler: (err) => {
         console.warn(
           'Citation plugin: non-fatal error loading BibLaTeX entry:',
