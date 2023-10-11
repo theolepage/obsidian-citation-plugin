@@ -81,7 +81,7 @@ class SearchModal extends FuzzySuggestModal<Entry> {
   }
 
   getItemText(item: Entry): string {
-    return `${item.title} ${item.authorString} ${item.year}`;
+    return `${item.title} ${item.id} ${item.authorString} ${item.year}`;
   }
 
   setLoading(loading: boolean): void {
@@ -113,7 +113,7 @@ class SearchModal extends FuzzySuggestModal<Entry> {
     const titleEl = container.createEl('span', {
       cls: 'zoteroTitle',
     });
-    container.createEl('span', { cls: 'zoteroCitekey', text: entry.id });
+    const keyEl = container.createEl('span', { cls: 'zoteroCitekey' });
 
     const authorsCls = entry.authorString
       ? 'zoteroAuthors'
@@ -126,7 +126,8 @@ class SearchModal extends FuzzySuggestModal<Entry> {
     // Compute offsets of each rendered element's content within the string
     // returned by `getItemText`.
     const allMatches = match.match.matches;
-    const authorStringOffset = 1 + entryTitle.length;
+    const keyStringOffset    = entryTitle.length + 1;
+    const authorStringOffset = entryTitle.length + entry.id.length + 1;
 
     // Filter a match list to contain only the relevant matches for a given
     // substring, and with match indices shifted relative to the start of that
@@ -154,7 +155,20 @@ class SearchModal extends FuzzySuggestModal<Entry> {
     renderMatches(
       titleEl,
       entryTitle,
-      shiftMatches(allMatches, 0, entryTitle.length),
+      shiftMatches(
+        allMatches,
+        0,
+        entryTitle.length
+      ),
+    );
+    renderMatches(
+      keyEl,
+      entry.id,
+      shiftMatches(
+        allMatches,
+        keyStringOffset,
+        keyStringOffset + entry.id.length
+      ),
     );
     if (entry.authorString) {
       renderMatches(
@@ -163,7 +177,7 @@ class SearchModal extends FuzzySuggestModal<Entry> {
         shiftMatches(
           allMatches,
           authorStringOffset,
-          authorStringOffset + entry.authorString.length,
+          authorStringOffset + entry.authorString.length
         ),
       );
     }

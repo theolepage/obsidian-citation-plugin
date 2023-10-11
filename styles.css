@@ -49,19 +49,25 @@
 .zoteroAuthors {
   color: #555;
   font-size: 13px;
+  font-style: italic;
 }
 .zoteroAuthorsEmpty::after {
   font-style: italic;
   content: 'Unknown authors';
 }
+.zoteroCitekey:before {
+  content: '@';
+}
 .zoteroCitekey {
+  font-size: 14px;
+  display: block;
   color: #555;
-  font-size: 13px;
-  font-family: monospace;
-  display: inline-block;
-  margin-right: 5px;
-  padding-right: 5px;
-  border-right: 1px solid #ccc;
+  /* font-size: 13px; */
+  /* font-family: monospace; */
+  /* display: inline-block; */
+  /* margin-right: 5px; */
+  /* padding-right: 5px; */
+  /* border-right: 1px solid #ccc; */
 }
 
 .theme-dark .zoteroTitle {
