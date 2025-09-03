@@ -311,11 +311,11 @@ export class EntryCSLAdapter extends Entry {
   }
 
   get title() {
-    return this.data.title;
+    return `"${this.data.title}"`;
   }
 
   get titleShort() {
-    return this.data['title-short'];
+    return `"${this.data['title-short']}"`;
   }
 
   get URL() {
